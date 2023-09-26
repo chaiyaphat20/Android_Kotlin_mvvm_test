@@ -24,8 +24,15 @@ class MainActivity : AppCompatActivity() {
         todoViewModel = ViewModelProvider(this)[TodoViewModel::class.java]
         getTodo()
         observe()
-
+        todoViewModel.clearUrl()
         binding.btn.setOnClickListener{
+            todoViewModel.setUrl("jsonplaceholder.typicode.co.th")
+            getTodo()
+
+        }
+
+        binding.btn2.setOnClickListener{
+            todoViewModel.setUrl("jsonplaceholder.typicode.com")
             getTodo()
         }
     }

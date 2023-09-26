@@ -1,5 +1,6 @@
 package com.cpfit.examplehiltkotlin.api.di
 
+import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
 import com.cpfit.examplehiltkotlin.api.network.TodoService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -28,13 +29,14 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, hostSelectionInterceptor :HostSelectionInterceptor): OkHttpClient =
         OkHttpClient
             .Builder()
             .connectTimeout(10, TimeUnit.MINUTES)
             .writeTimeout(10, TimeUnit.MINUTES)
             .readTimeout(10, TimeUnit.MINUTES)
             .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(hostSelectionInterceptor)
             .build()
     //--//
 
