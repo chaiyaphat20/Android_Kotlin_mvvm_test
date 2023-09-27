@@ -2,7 +2,6 @@ package com.cpfit.examplehiltkotlin.api
 
 import android.content.Context
 import android.preference.PreferenceManager
-import android.preference.PreferenceScreen
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
