@@ -15,12 +15,6 @@ import javax.inject.Inject
 class HostSelectionInterceptor @Inject constructor(@ApplicationContext context: Context) : Interceptor {
     private val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context) // ใช้ context ของคุณ
 
-    @Volatile
-    private var host: String? = null
-    fun setHost(host: String?) {
-        this.host = host
-    }
-
     @Throws(IOException::class)
     override fun intercept(chain: Chain): Response {
         var request = chain.request()
