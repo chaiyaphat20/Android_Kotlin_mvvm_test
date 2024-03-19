@@ -3,6 +3,7 @@ package com.cpfit.examplehiltkotlin.api.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cpfit.examplehiltkotlin.api.NetworkResult
+import com.cpfit.examplehiltkotlin.api.model.ModelDetail
 import com.cpfit.examplehiltkotlin.api.model.ModelMovies
 import com.cpfit.examplehiltkotlin.api.network.MoviesService
 import org.json.JSONObject
@@ -15,6 +16,11 @@ class MoviesRepository @Inject constructor(private val services: MoviesService) 
     private val _getMovieLiveData = MutableLiveData<NetworkResult<List<ModelMovies>>>()
     val getTodoLiveData: LiveData<NetworkResult<List<ModelMovies>>>
         get() = _getMovieLiveData //getter
+
+    private val _getDepartmentDetailLiveData = MutableLiveData<NetworkResult<List<ModelDetail>>>()
+    val getDepartmentDetailLiveData: LiveData<NetworkResult<List<ModelDetail>>>
+        get() = _getDepartmentDetailLiveData //getter
+
 
     suspend fun getMoviesList() {
         try {
@@ -50,6 +56,44 @@ class MoviesRepository @Inject constructor(private val services: MoviesService) 
             )
         } else {
             _getMovieLiveData.postValue(NetworkResult.Error("Some thing went wrong."))
+        }
+    }
+
+
+    suspend fun getDepartmentDetailById(id: Int) {
+        try {
+            val response = services.getDepartmentDetailById(id)
+            handleResponseGetDepartmentDetailById(response)
+        } catch (e: Exception) {
+            when (e) {
+                is SocketTimeoutException -> {
+                    val msg = e.toString()
+                    _getDepartmentDetailLiveData.postValue(NetworkResult.Error(msg))
+                }
+
+                is UnknownHostException -> {
+                    val msg = "ไม่สามารถเชื่อมต่อ VPN"
+                    _getDepartmentDetailLiveData.postValue(NetworkResult.Error(msg))
+                }
+
+                else ->
+                    _getDepartmentDetailLiveData.postValue(NetworkResult.Error(e.toString()))
+            }
+        }
+    }
+
+    private fun handleResponseGetDepartmentDetailById(response: Response<List<ModelDetail>>) {
+        if (response.isSuccessful && response.body() != null) {
+            _getDepartmentDetailLiveData.postValue(NetworkResult.Success(response.body()!!))
+        } else if (response.errorBody() != null) {
+            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+            _getDepartmentDetailLiveData.postValue(
+                NetworkResult.Error(
+                    errorObj.get("message").toString()
+                )
+            )
+        } else {
+            _getDepartmentDetailLiveData.postValue(NetworkResult.Error("Some thing went wrong."))
         }
     }
 }

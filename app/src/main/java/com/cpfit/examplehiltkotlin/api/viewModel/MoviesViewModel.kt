@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
 import com.cpfit.examplehiltkotlin.api.NetworkResult
+import com.cpfit.examplehiltkotlin.api.model.ModelDetail
 import com.cpfit.examplehiltkotlin.api.model.ModelMovies
 import com.cpfit.examplehiltkotlin.api.repository.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,18 +16,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesViewModel @Inject constructor(private val repo: MoviesRepository, val inter : HostSelectionInterceptor, @ApplicationContext context: Context):ViewModel()  {
+class MoviesViewModel @Inject constructor(
+    private val repo: MoviesRepository,
+    val inter: HostSelectionInterceptor,
+    @ApplicationContext context: Context
+) : ViewModel() {
     val getTodo: LiveData<NetworkResult<List<ModelMovies>>>
         get() = repo.getTodoLiveData
+
+    val getDepartmentDetail: LiveData<NetworkResult<List<ModelDetail>>>
+        get() = repo.getDepartmentDetailLiveData
+
     //Pattern
     val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context) // ใช้ context ของคุณ
-    fun setUrl(url:String){
+    fun setUrl(url: String) {
         val editor = sharedPrefs.edit()
         editor.putString("BASE_URL", url)
         editor.apply()
     }
 
-    fun clearUrl(){
+    fun clearUrl() {
         val editor = sharedPrefs.edit()
         editor.putString("BASE_URL", null)
         editor.apply()
@@ -35,6 +44,12 @@ class MoviesViewModel @Inject constructor(private val repo: MoviesRepository, va
     fun getTodo() {
         viewModelScope.launch {
             repo.getMoviesList()
+        }
+    }
+
+    fun getDepartmentDetailById(id: Int) {
+        viewModelScope.launch {
+            repo.getDepartmentDetailById(id)
         }
     }
 }

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.cpfit.examplehiltkotlin.api.model.ModelDetail
 import com.cpfit.examplehiltkotlin.api.model.ModelMovies
 import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselDetailBinding
 import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselItemBinding
@@ -18,7 +19,7 @@ import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselItemBinding
 class RvDapartmentDetailAdapter :
     RecyclerView.Adapter<RvDapartmentDetailAdapter.MyHolder>() {
     private lateinit var context: Context
-    private var moviesList = mutableListOf<ModelMovies>()
+    private var moviesList = mutableListOf<ModelDetail>()
 
     class MyHolder(val binding: DepartmentCarouselDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -45,14 +46,14 @@ class RvDapartmentDetailAdapter :
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         with(moviesList[position]) {
             holder.binding.textName.text = name
-            holder.binding.textDescription.text = name
-            holder.binding.textPrice.text = name
+            holder.binding.textDescription.text = desc
+            holder.binding.textPrice.text = price
             Glide.with(holder.itemView).load(moviesList[position].imageUrl)
                 .into(holder.binding.image)
         }
     }
 
-    fun addMoviesDetailList(moviesList: List<ModelMovies>) {
+    fun addMoviesDetailList(moviesList: List<ModelDetail>) {
         this.moviesList.clear()
         this.moviesList.addAll(moviesList)
         notifyDataSetChanged()
