@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity() {
         todoViewModel.getTodo.observe(this) {
             if (it.error == null && it.data != null
             ) {
-                it.data
-                Log.d("ART", "sss")
                 setDepartmentCarousel(it.data)
             } else {
                 Toast.makeText(this, it.error.toString(), Toast.LENGTH_LONG).show()

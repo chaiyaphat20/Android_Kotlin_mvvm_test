@@ -86,6 +86,7 @@ dependencies {
     // For local unit tests
     testImplementation ("com.google.dagger:hilt-android-testing:2.48")
     kaptTest ("com.google.dagger:hilt-compiler:2.48")
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 }
 
 kapt {
