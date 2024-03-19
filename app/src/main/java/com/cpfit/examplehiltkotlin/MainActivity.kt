@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cpfit.examplehiltkotlin.adapter.RvDapartmentCarouselAdapter
+import com.cpfit.examplehiltkotlin.adapter.RvDapartmentDetailAdapter
 import com.cpfit.examplehiltkotlin.api.model.ModelMovies
 import com.cpfit.examplehiltkotlin.api.viewModel.MoviesViewModel
 import com.cpfit.examplehiltkotlin.databinding.ActivityMainBinding
@@ -19,7 +21,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var todoViewModel: MoviesViewModel
-    private lateinit var adapter: RvDapartmentCarouselAdapter
+    private lateinit var rvDapartmentCarouselAdapter: RvDapartmentCarouselAdapter
+    private lateinit var rvDapartmentDetailAdapter: RvDapartmentDetailAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             if (it.error == null && it.data != null
             ) {
                 setDepartmentCarousel(it.data)
+                setDepartmentDetail(it.data)
             } else {
                 Toast.makeText(this, it.error.toString(), Toast.LENGTH_LONG).show()
             }
@@ -48,10 +52,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setDepartmentCarousel(data: List<ModelMovies>) {
-        adapter = RvDapartmentCarouselAdapter()
-        binding.rvDepartmentCarousel.adapter = adapter
+        rvDapartmentCarouselAdapter = RvDapartmentCarouselAdapter()
+        binding.rvDepartmentCarousel.adapter = rvDapartmentCarouselAdapter
         binding.rvDepartmentCarousel.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        adapter.addMoviesList(data)
+        rvDapartmentCarouselAdapter.addMoviesList(data)
+    }
+
+    private fun setDepartmentDetail(data: List<ModelMovies>) {
+        val gridLayoutManager = GridLayoutManager(this, 2)
+        rvDapartmentDetailAdapter = RvDapartmentDetailAdapter()
+        binding.rvDepartmentDetail.adapter = rvDapartmentDetailAdapter
+        binding.rvDepartmentDetail.layoutManager =gridLayoutManager
+        rvDapartmentDetailAdapter.addMoviesDetailList(data)
     }
 }
