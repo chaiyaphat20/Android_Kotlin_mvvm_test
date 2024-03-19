@@ -31,6 +31,8 @@
             android:padding="5dp">
 
             <TextView
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:id="@+id/textName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
