@@ -12,10 +12,12 @@ import com.cpfit.examplehiltkotlin.model.ModelDetail
 import com.cpfit.examplehiltkotlin.model.ModelDepartment
 import com.cpfit.examplehiltkotlin.viewModel.DepartmentViewModel
 import com.cpfit.examplehiltkotlin.databinding.ActivityMainBinding
+import com.cpfit.examplehiltkotlin.dialog.CustomDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartmentCarouselAdapter {
+class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartmentCarouselAdapter,
+    RvDapartmentDetailAdapter.IRvDapartmentDetailAdapter {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -66,9 +68,15 @@ class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartm
         rvDapartmentCarouselAdapter.addMoviesList(data)
     }
 
+    private fun showDialogDetail(description: String) {
+        val customDialog = CustomDialog(this)
+        customDialog.setDescription(description)
+        customDialog.show()
+    }
+
     private fun setDepartmentDetail(data: List<ModelDetail>) {
         val gridLayoutManager = GridLayoutManager(this, 2)
-        rvDapartmentDetailAdapter = RvDapartmentDetailAdapter()
+        rvDapartmentDetailAdapter = RvDapartmentDetailAdapter(this)
         binding.rvDepartmentDetail.adapter = rvDapartmentDetailAdapter
         binding.rvDepartmentDetail.layoutManager = gridLayoutManager
         rvDapartmentDetailAdapter.addMoviesDetailList(data)
@@ -77,5 +85,9 @@ class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartm
     override fun onClickPicture(departmentId: Int, name: String) {
         departmentViewModel.getDepartmentDetailById(departmentId)
         binding.txtDepartmentName.text = name
+    }
+
+    override fun onClickDetail(desc: String) {
+        showDialogDetail(desc)
     }
 }

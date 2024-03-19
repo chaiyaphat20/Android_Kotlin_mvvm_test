@@ -9,7 +9,7 @@ import com.cpfit.examplehiltkotlin.model.ModelDetail
 import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselDetailBinding
 
 
-class RvDapartmentDetailAdapter :
+class RvDapartmentDetailAdapter(private val listener: IRvDapartmentDetailAdapter) :
     RecyclerView.Adapter<RvDapartmentDetailAdapter.MyHolder>() {
     private lateinit var context: Context
     private var moviesList = mutableListOf<ModelDetail>()
@@ -41,6 +41,9 @@ class RvDapartmentDetailAdapter :
             holder.binding.textName.text = name
             holder.binding.textDescription.text = desc
             holder.binding.textPrice.text = price
+            holder.itemView.setOnClickListener {
+                listener.onClickDetail(desc)
+            }
             Glide.with(holder.itemView).load(moviesList[position].imageUrl)
                 .into(holder.binding.image)
         }
@@ -52,5 +55,8 @@ class RvDapartmentDetailAdapter :
         notifyDataSetChanged()
     }
 
+    interface IRvDapartmentDetailAdapter {
+        fun onClickDetail(desc: String)
+    }
 
 }
