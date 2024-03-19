@@ -2,19 +2,15 @@ package com.cpfit.examplehiltkotlin.adapter
 
 import android.R
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.cpfit.examplehiltkotlin.api.model.ModelMovies
 import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselItemBinding
 
 
-class RvDapartmentCarouselAdapter :
+class RvDapartmentCarouselAdapter(private val listener: IRvDapartmentCarouselAdapter) :
     RecyclerView.Adapter<RvDapartmentCarouselAdapter.MyHolder>() {
     private lateinit var context: Context
     private var moviesList = mutableListOf<ModelMovies>()
@@ -44,6 +40,9 @@ class RvDapartmentCarouselAdapter :
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         with(moviesList[position]) {
             holder.binding.textMovieName.text = name
+            holder.itemView.setOnClickListener {
+                listener.onClickPicture(id.toInt(), name)
+            }
             Glide.with(holder.itemView).load(moviesList[position].imageUrl)
                 .into(holder.binding.image)
         }
@@ -53,5 +52,9 @@ class RvDapartmentCarouselAdapter :
         this.moviesList.clear()
         this.moviesList.addAll(moviesList)
         notifyDataSetChanged()
+    }
+
+    interface IRvDapartmentCarouselAdapter {
+        fun onClickPicture(departmentId: Int, name: String)
     }
 }

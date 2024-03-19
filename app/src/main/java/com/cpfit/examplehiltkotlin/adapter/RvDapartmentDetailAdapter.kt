@@ -58,4 +58,6 @@ class RvDapartmentDetailAdapter :
         this.moviesList.addAll(moviesList)
         notifyDataSetChanged()
     }
+
+
 }

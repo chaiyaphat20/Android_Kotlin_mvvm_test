@@ -16,7 +16,7 @@ import com.cpfit.examplehiltkotlin.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartmentCarouselAdapter {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 setDepartmentCarousel(it.data)
                 todoViewModel.getDepartmentDetailById(it.data[0].id.toInt())
+                binding.txtDepartmentName.text = it.data[0].name
             } else {
                 Toast.makeText(this, it.error.toString(), Toast.LENGTH_LONG).show()
             }
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setDepartmentCarousel(data: List<ModelMovies>) {
-        rvDapartmentCarouselAdapter = RvDapartmentCarouselAdapter()
+        rvDapartmentCarouselAdapter = RvDapartmentCarouselAdapter(this)
         binding.rvDepartmentCarousel.adapter = rvDapartmentCarouselAdapter
         binding.rvDepartmentCarousel.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -75,5 +76,10 @@ class MainActivity : AppCompatActivity() {
         binding.rvDepartmentDetail.adapter = rvDapartmentDetailAdapter
         binding.rvDepartmentDetail.layoutManager = gridLayoutManager
         rvDapartmentDetailAdapter.addMoviesDetailList(data)
+    }
+
+    override fun onClickPicture(departmentId: Int, name: String) {
+        todoViewModel.getDepartmentDetailById(departmentId)
+        binding.txtDepartmentName.text = name
     }
 }
