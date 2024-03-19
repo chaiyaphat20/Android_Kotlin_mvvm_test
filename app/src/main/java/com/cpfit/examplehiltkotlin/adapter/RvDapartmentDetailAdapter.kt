@@ -1,19 +1,12 @@
 package com.cpfit.examplehiltkotlin.adapter
 
-import android.R
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelMovies
 import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselDetailBinding
-import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselItemBinding
 
 
 class RvDapartmentDetailAdapter :

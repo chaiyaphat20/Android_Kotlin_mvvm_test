@@ -2,7 +2,6 @@ package com.cpfit.examplehiltkotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cpfit.examplehiltkotlin.adapter.RvDapartmentCarouselAdapter
 import com.cpfit.examplehiltkotlin.adapter.RvDapartmentDetailAdapter
 import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelMovies
-import com.cpfit.examplehiltkotlin.api.viewModel.MoviesViewModel
+import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
+import com.cpfit.examplehiltkotlin.api.viewModel.DepartmentViewModel
 import com.cpfit.examplehiltkotlin.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,38 +20,35 @@ class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartm
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var todoViewModel: MoviesViewModel
+    private lateinit var departmentViewModel: DepartmentViewModel
     private lateinit var rvDapartmentCarouselAdapter: RvDapartmentCarouselAdapter
     private lateinit var rvDapartmentDetailAdapter: RvDapartmentDetailAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        todoViewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
+        departmentViewModel = ViewModelProvider(this)[DepartmentViewModel::class.java]
         getTodo()
         observe()
-        todoViewModel.clearUrl()
-//        binding.btn.setOnClickListener {
-//            getTodo()
-//        }
+        departmentViewModel.clearUrl()
     }
 
     private fun getTodo() {
-        todoViewModel.getTodo()
+        departmentViewModel.getTodo()
     }
 
     private fun observe() {
-        todoViewModel.getTodo.observe(this) {
+        departmentViewModel.getTodo.observe(this) {
             if (it.error == null && it.data != null
             ) {
                 setDepartmentCarousel(it.data)
-                todoViewModel.getDepartmentDetailById(it.data[0].id.toInt())
+                departmentViewModel.getDepartmentDetailById(it.data[0].id.toInt())
                 binding.txtDepartmentName.text = it.data[0].name
             } else {
                 Toast.makeText(this, it.error.toString(), Toast.LENGTH_LONG).show()
             }
         }
 
-        todoViewModel.getDepartmentDetail.observe(this) {
+        departmentViewModel.getDepartmentDetail.observe(this) {
             if (it.error == null && it.data != null
             ) {
                 setDepartmentDetail(it.data)
@@ -62,7 +58,7 @@ class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartm
         }
     }
 
-    private fun setDepartmentCarousel(data: List<ModelMovies>) {
+    private fun setDepartmentCarousel(data: List<ModelDepartment>) {
         rvDapartmentCarouselAdapter = RvDapartmentCarouselAdapter(this)
         binding.rvDepartmentCarousel.adapter = rvDapartmentCarouselAdapter
         binding.rvDepartmentCarousel.layoutManager =
@@ -79,7 +75,7 @@ class MainActivity : AppCompatActivity(), RvDapartmentCarouselAdapter.IRvDapartm
     }
 
     override fun onClickPicture(departmentId: Int, name: String) {
-        todoViewModel.getDepartmentDetailById(departmentId)
+        departmentViewModel.getDepartmentDetailById(departmentId)
         binding.txtDepartmentName.text = name
     }
 }

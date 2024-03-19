@@ -4,17 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cpfit.examplehiltkotlin.api.NetworkResult
 import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelMovies
-import com.cpfit.examplehiltkotlin.api.network.MoviesService
+import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
+import com.cpfit.examplehiltkotlin.api.network.DepartmentService
 import org.json.JSONObject
 import retrofit2.Response
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class MoviesRepository @Inject constructor(private val services: MoviesService) {
-    private val _getMovieLiveData = MutableLiveData<NetworkResult<List<ModelMovies>>>()
-    val getTodoLiveData: LiveData<NetworkResult<List<ModelMovies>>>
+class DepartmentRepository @Inject constructor(private val services: DepartmentService) {
+    private val _getMovieLiveData = MutableLiveData<NetworkResult<List<ModelDepartment>>>()
+    val getTodoLiveData: LiveData<NetworkResult<List<ModelDepartment>>>
         get() = _getMovieLiveData //getter
 
     private val _getDepartmentDetailLiveData = MutableLiveData<NetworkResult<List<ModelDetail>>>()
@@ -24,7 +24,7 @@ class MoviesRepository @Inject constructor(private val services: MoviesService) 
 
     suspend fun getMoviesList() {
         try {
-            val response = services.getMoviesList()
+            val response = services.getDepartmentList()
             handleResponseGetMovieList(response)
         } catch (e: Exception) {
             when (e) {
@@ -44,7 +44,7 @@ class MoviesRepository @Inject constructor(private val services: MoviesService) 
         }
     }
 
-    private fun handleResponseGetMovieList(response: Response<List<ModelMovies>>) {
+    private fun handleResponseGetMovieList(response: Response<List<ModelDepartment>>) {
         if (response.isSuccessful && response.body() != null) {
             _getMovieLiveData.postValue(NetworkResult.Success(response.body()!!))
         } else if (response.errorBody() != null) {

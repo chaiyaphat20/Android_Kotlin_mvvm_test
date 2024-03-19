@@ -1,7 +1,7 @@
 package com.cpfit.examplehiltkotlin.api.di
 
 import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
-import com.cpfit.examplehiltkotlin.api.network.MoviesService
+import com.cpfit.examplehiltkotlin.api.network.DepartmentService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -59,7 +59,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun movies(@Named("URL1") retrofit: Retrofit): MoviesService {
-        return retrofit.create(MoviesService::class.java)
+    fun movies(@Named("URL1") retrofit: Retrofit): DepartmentService {
+        return retrofit.create(DepartmentService::class.java)
     }
 }

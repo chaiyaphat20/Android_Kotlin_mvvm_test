@@ -8,20 +8,20 @@ import androidx.lifecycle.viewModelScope
 import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
 import com.cpfit.examplehiltkotlin.api.NetworkResult
 import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelMovies
-import com.cpfit.examplehiltkotlin.api.repository.MoviesRepository
+import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
+import com.cpfit.examplehiltkotlin.api.repository.DepartmentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesViewModel @Inject constructor(
-    private val repo: MoviesRepository,
+class DepartmentViewModel @Inject constructor(
+    private val repo: DepartmentRepository,
     val inter: HostSelectionInterceptor,
     @ApplicationContext context: Context
 ) : ViewModel() {
-    val getTodo: LiveData<NetworkResult<List<ModelMovies>>>
+    val getTodo: LiveData<NetworkResult<List<ModelDepartment>>>
         get() = repo.getTodoLiveData
 
     val getDepartmentDetail: LiveData<NetworkResult<List<ModelDetail>>>

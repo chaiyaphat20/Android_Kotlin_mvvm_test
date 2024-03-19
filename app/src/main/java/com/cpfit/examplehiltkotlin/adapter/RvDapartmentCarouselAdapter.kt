@@ -1,19 +1,18 @@
 package com.cpfit.examplehiltkotlin.adapter
 
-import android.R
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.cpfit.examplehiltkotlin.api.model.ModelMovies
+import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
 import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselItemBinding
 
 
 class RvDapartmentCarouselAdapter(private val listener: IRvDapartmentCarouselAdapter) :
     RecyclerView.Adapter<RvDapartmentCarouselAdapter.MyHolder>() {
     private lateinit var context: Context
-    private var moviesList = mutableListOf<ModelMovies>()
+    private var moviesList = mutableListOf<ModelDepartment>()
 
     class MyHolder(val binding: DepartmentCarouselItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -48,7 +47,7 @@ class RvDapartmentCarouselAdapter(private val listener: IRvDapartmentCarouselAda
         }
     }
 
-    fun addMoviesList(moviesList: List<ModelMovies>) {
+    fun addMoviesList(moviesList: List<ModelDepartment>) {
         this.moviesList.clear()
         this.moviesList.addAll(moviesList)
         notifyDataSetChanged()
