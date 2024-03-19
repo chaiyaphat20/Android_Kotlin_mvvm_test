@@ -1,12 +1,10 @@
 package com.cpfit.examplehiltkotlin
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.cpfit.examplehiltkotlin.api.viewModel.TodoViewModel
+import com.cpfit.examplehiltkotlin.api.viewModel.MoviesViewModel
 import com.cpfit.examplehiltkotlin.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,23 +14,16 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var todoViewModel: TodoViewModel
+    private lateinit var todoViewModel: MoviesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        todoViewModel = ViewModelProvider(this)[TodoViewModel::class.java]
+        todoViewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
         getTodo()
         observe()
         todoViewModel.clearUrl()
-        binding.btn.setOnClickListener{
-            todoViewModel.setUrl("jsonplaceholder.typicode.co.th")
-            getTodo()
-
-        }
-
-        binding.btn2.setOnClickListener{
-            todoViewModel.setUrl("jsonplaceholder.typicode.com")
+        binding.btn.setOnClickListener {
             getTodo()
         }
     }
@@ -45,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         todoViewModel.getTodo.observe(this){
             if (it.error == null && it.data != null
             ) {
-                Toast.makeText(this,it.data.title,Toast.LENGTH_LONG).show()
+                Toast.makeText(this,it.data[0].name,Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this,it.error.toString(),Toast.LENGTH_LONG).show()
             }

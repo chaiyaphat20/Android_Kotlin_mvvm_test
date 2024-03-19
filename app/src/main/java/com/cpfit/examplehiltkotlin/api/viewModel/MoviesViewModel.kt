@@ -7,16 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
 import com.cpfit.examplehiltkotlin.api.NetworkResult
-import com.cpfit.examplehiltkotlin.api.model.ToDORes
-import com.cpfit.examplehiltkotlin.api.repository.TodoRepository
+import com.cpfit.examplehiltkotlin.api.model.ModelMovies
+import com.cpfit.examplehiltkotlin.api.repository.MoviesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TodoViewModel @Inject constructor(private val repo: TodoRepository,val inter : HostSelectionInterceptor,@ApplicationContext context: Context):ViewModel()  {
-    val getTodo: LiveData<NetworkResult<ToDORes>>
+class MoviesViewModel @Inject constructor(private val repo: MoviesRepository, val inter : HostSelectionInterceptor, @ApplicationContext context: Context):ViewModel()  {
+    val getTodo: LiveData<NetworkResult<List<ModelMovies>>>
         get() = repo.getTodoLiveData
     //Pattern
     val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context) // ใช้ context ของคุณ
@@ -34,7 +34,7 @@ class TodoViewModel @Inject constructor(private val repo: TodoRepository,val int
 
     fun getTodo() {
         viewModelScope.launch {
-            repo.getTodo()
+            repo.getMoviesList()
         }
     }
 }

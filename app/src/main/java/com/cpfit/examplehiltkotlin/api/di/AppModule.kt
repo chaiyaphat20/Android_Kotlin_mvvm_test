@@ -1,7 +1,7 @@
 package com.cpfit.examplehiltkotlin.api.di
 
 import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
-import com.cpfit.examplehiltkotlin.api.network.TodoService
+import com.cpfit.examplehiltkotlin.api.network.MoviesService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -50,7 +50,7 @@ class AppModule {
     @Named("URL1")
     fun getRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/todos/1/")
+            .baseUrl("https://659f86b15023b02bfe89c737.mockapi.io/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
@@ -59,7 +59,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun todo1(@Named("URL1") retrofit: Retrofit): TodoService {
-        return retrofit.create(TodoService::class.java)
+    fun movies(@Named("URL1") retrofit: Retrofit): MoviesService {
+        return retrofit.create(MoviesService::class.java)
     }
 }

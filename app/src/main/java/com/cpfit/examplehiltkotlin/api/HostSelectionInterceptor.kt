@@ -17,16 +17,16 @@ class HostSelectionInterceptor @Inject constructor(@ApplicationContext context: 
     @Throws(IOException::class)
     override fun intercept(chain: Chain): Response {
         var request = chain.request()
-        val currentHostPref = sharedPrefs.getString("BASE_URL", "jsonplaceholder.typicode.com") // ใช้ค่า host ที่ถูกตั้งค่าในคลาส
-        Log.d("BASE_URL",currentHostPref.toString())
-        if (currentHostPref != null) {
-            val newUrl = request.url.newBuilder()
-                .host(currentHostPref)
-                .build()
-            request = request.newBuilder()
-                .url(newUrl)
-                .build()
-        }
+//        val currentHostPref = sharedPrefs.getString("BASE_URL", "jsonplaceholder.typicode.com") // ใช้ค่า host ที่ถูกตั้งค่าในคลาส
+//        Log.d("BASE_URL",currentHostPref.toString())
+//        if (currentHostPref != null) {
+//            val newUrl = request.url.newBuilder()
+//                .host(currentHostPref)
+//                .build()
+//            request = request.newBuilder()
+//                .url(newUrl)
+//                .build()
+//        }
         return chain.proceed(request)
     }
 }
