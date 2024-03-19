@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cpfit.examplehiltkotlin.adapter.RvDapartmentCarouselAdapter
 import com.cpfit.examplehiltkotlin.adapter.RvDapartmentDetailAdapter
-import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
-import com.cpfit.examplehiltkotlin.api.viewModel.DepartmentViewModel
+import com.cpfit.examplehiltkotlin.model.ModelDetail
+import com.cpfit.examplehiltkotlin.model.ModelDepartment
+import com.cpfit.examplehiltkotlin.viewModel.DepartmentViewModel
 import com.cpfit.examplehiltkotlin.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.cpfit.examplehiltkotlin.api.model.ModelDetail
+import com.cpfit.examplehiltkotlin.model.ModelDetail
 import com.cpfit.examplehiltkotlin.databinding.DepartmentCarouselDetailBinding
 
 

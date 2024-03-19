@@ -1,11 +1,11 @@
-package com.cpfit.examplehiltkotlin.api.repository
+package com.cpfit.examplehiltkotlin.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.cpfit.examplehiltkotlin.api.NetworkResult
-import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
-import com.cpfit.examplehiltkotlin.api.network.DepartmentService
+import com.cpfit.examplehiltkotlin.utils.NetworkResult
+import com.cpfit.examplehiltkotlin.model.ModelDetail
+import com.cpfit.examplehiltkotlin.model.ModelDepartment
+import com.cpfit.examplehiltkotlin.network.DepartmentService
 import org.json.JSONObject
 import retrofit2.Response
 import java.net.SocketTimeoutException

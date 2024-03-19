@@ -1,7 +1,7 @@
-package com.cpfit.examplehiltkotlin.api.di
+package com.cpfit.examplehiltkotlin.di
 
-import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
-import com.cpfit.examplehiltkotlin.api.network.DepartmentService
+import com.cpfit.examplehiltkotlin.utils.HostSelectionInterceptor
+import com.cpfit.examplehiltkotlin.network.DepartmentService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -29,7 +29,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, hostSelectionInterceptor :HostSelectionInterceptor): OkHttpClient =
+    fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, hostSelectionInterceptor : HostSelectionInterceptor): OkHttpClient =
         OkHttpClient
             .Builder()
             .connectTimeout(10, TimeUnit.MINUTES)

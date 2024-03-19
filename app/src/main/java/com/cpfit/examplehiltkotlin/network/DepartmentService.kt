@@ -1,7 +1,7 @@
-package com.cpfit.examplehiltkotlin.api.network
+package com.cpfit.examplehiltkotlin.network
 
-import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
+import com.cpfit.examplehiltkotlin.model.ModelDetail
+import com.cpfit.examplehiltkotlin.model.ModelDepartment
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

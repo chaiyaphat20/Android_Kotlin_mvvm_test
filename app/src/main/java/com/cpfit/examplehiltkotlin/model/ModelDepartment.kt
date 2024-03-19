@@ -1,4 +1,4 @@
-package com.cpfit.examplehiltkotlin.api.model
+package com.cpfit.examplehiltkotlin.model
 
 data class ModelDepartment(
     val name: String,

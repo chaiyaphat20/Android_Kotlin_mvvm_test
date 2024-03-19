@@ -1,4 +1,4 @@
-package com.cpfit.examplehiltkotlin.api
+package com.cpfit.examplehiltkotlin.utils
 
 import android.content.Context
 import android.preference.PreferenceManager

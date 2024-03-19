@@ -1,4 +1,4 @@
-package com.cpfit.examplehiltkotlin.api
+package com.cpfit.examplehiltkotlin.utils
 
 //คล้าย enum แต่ return เป็น  class
 sealed class NetworkResult<T>(val data: T? = null, val error: String? = null) {

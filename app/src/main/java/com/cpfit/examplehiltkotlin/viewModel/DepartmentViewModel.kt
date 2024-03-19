@@ -1,15 +1,15 @@
-package com.cpfit.examplehiltkotlin.api.viewModel
+package com.cpfit.examplehiltkotlin.viewModel
 
 import android.content.Context
 import android.preference.PreferenceManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cpfit.examplehiltkotlin.api.HostSelectionInterceptor
-import com.cpfit.examplehiltkotlin.api.NetworkResult
-import com.cpfit.examplehiltkotlin.api.model.ModelDetail
-import com.cpfit.examplehiltkotlin.api.model.ModelDepartment
-import com.cpfit.examplehiltkotlin.api.repository.DepartmentRepository
+import com.cpfit.examplehiltkotlin.utils.HostSelectionInterceptor
+import com.cpfit.examplehiltkotlin.utils.NetworkResult
+import com.cpfit.examplehiltkotlin.model.ModelDetail
+import com.cpfit.examplehiltkotlin.model.ModelDepartment
+import com.cpfit.examplehiltkotlin.repository.DepartmentRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
